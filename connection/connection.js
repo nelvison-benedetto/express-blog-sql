@@ -19,6 +19,7 @@ connection.connect((err)=>{
     console.log('Connected to MYSQL!');
 })
   
+
 module.exports = connection;
   // execute will internally call prepare and query
 //   connection.execute(
