@@ -3,6 +3,7 @@ const posts = require('../db/storeposts.js');
 const fs = require('fs');
 const path = require('path');  //x path absolute of your root
 const multer = require('multer');  //x upload file img on server(express)
+const connection = require('../connection/connection.js');
 
 // Ottieni il percorso assoluto per il file storeposts.js
 const dbPath = path.join(__dirname, '../db/storeposts.js');  //with only '../db/storeposts.js' in Store return me error 500!
