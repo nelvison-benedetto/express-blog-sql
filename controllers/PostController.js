@@ -30,23 +30,42 @@ const index = (req,res)=>{    //INDEX  x db
             console.error('Error fetching manga:', err);
             return res.status(500).json({ error: 'Error fetching manga from database.' });
         }
-        return res.status(200).json({
+        return res.status(200).json({  //the same x index db storeposts.js
             data : posts,
             counter : posts.length
         });
     });
 };
 
-const show = (req,res)=>{    //SHOW
-    const postIndex = posts.findIndex((intem,index)=> intem.id === Number(req.params.id));
-    console.log(postIndex);
-    if(postIndex===-1){  //!post sarebbe ambiguo con posts[0] e un post mancante (-1)
-        return res.status(404).json({
-            error : '404 Not Found'
+// const show = (req,res)=>{    //SHOW
+//     const postIndex = posts.findIndex((intem,index)=> intem.id === Number(req.params.id));
+//     console.log(postIndex);
+//     if(postIndex===-1){  //!post sarebbe ambiguo con posts[0] e un post mancante (-1)
+//         return res.status(404).json({
+//             error : '404 Not Found'
+//         });
+//     }
+//     return res.status(200).json({
+//         data : posts[postIndex]
+//     });
+// };
+
+const show = (req,res)=>{
+    const mangaId = Number(req.params.id);
+    const query = 'SELECT * FROM manga WHERE id=?';
+    connection.query(query, [mangaId], (err,results)=>{
+        if(err){
+            console.error('Error fetching manga:',err);
+            return res.status(500).json({error:'Error fetching manga from database.'})
+        }
+        if(results.lenght === 0){
+            return res.status(404).json({
+                error : '404 Not Found - Manga Not Found',
+            })
+        }
+        return res.status(200).json({
+            data: results[0],
         });
-    }
-    return res.status(200).json({
-        data : posts[postIndex]
     });
 };
 
