@@ -23,10 +23,17 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 
-const index = (req,res)=>{    //INDEX
-    return res.status(200).json({
-        data : posts,
-        counter : posts.length
+const index = (req,res)=>{    //INDEX  x db
+    const query = 'SELECT * FROM manga';
+    connection.query(query, (err, results) => {
+        if (err) {
+            console.error('Error fetching manga:', err);
+            return res.status(500).json({ error: 'Error fetching manga from database.' });
+        }
+        return res.status(200).json({
+            data : posts,
+            counter : posts.length
+        });
     });
 };
 
