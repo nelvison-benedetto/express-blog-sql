@@ -15,13 +15,13 @@ const connection = mysql.createConnection({
     user: DB_USER,
     password: DB_PSW,
     database: DB_NAMEDB,
-});   
+});
 
 connection.connect((err)=>{
     if(err) throw err;
     console.log('Connected to MYSQL!');
 })
-  
+
 
 module.exports = connection;
   // execute will internally call prepare and query

@@ -1,12 +1,10 @@
 //app.js
 
-
-const HOST = process.env.HOST;
-const PORT = process.env.PORT;
-
 const express = require('express');
 const app = express();
 require('dotenv').config();
+const HOST = process.env.HOST;
+const PORT = process.env.PORT;
 
 const cors = require('cors');  //per far accedere alle tue rotte da altri domini(i.e un altro localhost)! (used npm install cors)
 const path = require('path');
@@ -27,7 +25,7 @@ app.listen(PORT, (req,res)=>{
 });
 
 // Middleware to serve static files from the "public" directory, when client ask x file react look into "public" folder
-app.use(express.static('public'));
+app.use(express.static('public'));  //no need "/imgcover" to serve files in "public" folder
 
 app.get('/',(req,res)=>{   //test http://localhost:3001/something/
     res.send('Main Page')
